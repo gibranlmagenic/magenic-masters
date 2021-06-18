@@ -1,62 +1,72 @@
-const yargs = require('yargs/yargs')
-const { hideBin } = require('yargs/helpers')
-const argv = yargs(hideBin(process.argv)).argv
+const yargs = require('yargs/yargs');
+const { hideBin } = require('yargs/helpers');
+const argv = yargs(hideBin(process.argv)).argv;
+
+const notifier = require('node-notifier');
 
 const fs = require('fs');
 const EventEmitter = require('events');
+const util = require('util');
+const reader = util.promisify(fs.readFile);
 
 const nameInput = argv.name;
 const pathInput = argv.path;
 
 class FileWatcher extends EventEmitter {
-    
-    constructor (name, path) {
-        super();
-        this.name = name;
-        this.path = path;
+  constructor (name, path) {
+    super();
+    this.name = name;
+    this.path = path;
+  }
+
+  async isNameFound (eventType, fileName) {
+    const regex = new RegExp(nameInput, 'i');
+
+    if (eventType === 'change') {
+      const contents = await reader(`${pathInput}\\${fileName}`, 'utf8');
+      return contents.match(regex);
     }
+  }
 
     watchDir = () => {
+      this.emit('startWatch', this.path);
 
-        this.emit('startWatch', this.path);
-        
-        fs.watch(this.path, (eventType, fileName) => {
-            if(eventType === 'change' || eventType === 'rename') {
-                this.emit('nameFoundOnFile', fileName);
-            }
-        });
+      var watching = false;
 
+      fs.watch(this.path, (eventType, fileName) => {
+        if (watching) return;
+        watching = true;
+
+        const nameSearch = this.isNameFound(eventType, fileName);
+
+        if (nameSearch) {
+          this.emit('nameFoundOnFile', fileName);
+        }
+
+        setTimeout(() => {
+          watching = false;
+        }, 100);
+      });
     }
-
 }
 
-async function run() {
-    let watcher = new FileWatcher(nameInput, pathInput);
+async function run () {
+  const watcher = new FileWatcher(nameInput, pathInput);
 
-    const searchName = (fileName) => {
+  const printToConsole = (fileName) => {
+    const message = `Your name was mentioned in file: ${fileName}`;
+    console.log(message);
+  };
 
-        return new Promise((resolve, reject) => {
+  const openToastNotification = (fileName) => {
+    const message = `Your name was mentioned in file: ${fileName}`;
+    notifier.notify(message);
+  };
 
-            const regex = new RegExp(nameInput, "i");
-    
-            fs.readFile(`${pathInput}/${fileName}`, 'utf8', function (err, contents) {
-
-                    if(err)
-                        console.log(`Error encountered: ${err.message}`);
-
-                    if (contents.match(regex)) {
-                        resolve(console.log('Found in file', fileName));
-                    } else {
-                        reject(console.log(`Not found in file`));
-                    }
-                
-            });
-        });
-    }
-    
-    watcher.on('startWatch', () => console.log(`Watching path: ${pathInput}`));
-    watcher.on('nameFoundOnFile', searchName);
-    watcher.watchDir();
+  watcher.on('startWatch', () => console.log(`Watching path: ${pathInput}`));
+  watcher.on('nameFoundOnFile', printToConsole);
+  watcher.on('nameFoundOnFile', openToastNotification);
+  watcher.watchDir();
 }
-  
+
 run();
