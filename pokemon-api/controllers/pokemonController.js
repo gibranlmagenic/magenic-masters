@@ -55,10 +55,10 @@ exports.handleDeleteRequest = (req, res) => {
     const pokemonUrl = new URL(req.url, `http://${req.headers.host}`);
 
     const params = pokemonUrl.searchParams;
-    pokemonService.delete(params.get('name'));
+    const result = pokemonService.delete(params.get('name'));
 
-    const data = pokemonService.get();
-    const result = { data };
+    // const data = pokemonService.get();
+    // const result = { data }; 
 
     res.writeHead(200, {
         'Content-Type': 'application/json',

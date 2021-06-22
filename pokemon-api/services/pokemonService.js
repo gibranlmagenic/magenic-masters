@@ -52,8 +52,23 @@ exports.insert = (pokemon) => {
 };
 
 exports.delete = (pokeName) => {
+   const isPokemonPresent = db.get(pokemonEndpoint)
+    .value()
+    .filter(n => compareName(n, pokeName));
+
+    if (!isPokemonPresent) {
+        return {
+            success: false,
+            errorMessage: `Pokemon ${pokeName} not found.`,
+        };
+    }
+
     db.get(pokemonEndpoint)
     .remove(n => compareName(n, pokeName))
     .write();
-    console.log(`${pokeName} DELETED`);
+
+    return {
+        success: true,
+    };
+
 };
