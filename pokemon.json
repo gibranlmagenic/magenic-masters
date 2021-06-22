@@ -1,0 +1,19 @@
+{
+  "pokemons": [
+    {
+      "name": "Lucario",
+      "type": "Fighting-Steel",
+      "generation": "4"
+    },
+    {
+      "name": "Latios",
+      "type": "Dragon-Psychic",
+      "generation": "3"
+    },
+    {
+      "name": "Pikachu",
+      "type": "Electric",
+      "genaration": "1"
+    }
+  ]
+}
