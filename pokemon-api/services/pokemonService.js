@@ -56,7 +56,7 @@ exports.delete = (pokeName) => {
     .value()
     .filter(n => compareName(n, pokeName));
 
-    if (!isPokemonPresent) {
+    if (isPokemonPresent.length === 0) {
         return {
             success: false,
             errorMessage: `Pokemon ${pokeName} not found.`,
