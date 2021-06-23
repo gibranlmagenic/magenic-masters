@@ -72,3 +72,27 @@ exports.delete = (pokeName) => {
     };
 
 };
+
+exports.update = (pokeName, updateData) => {
+    
+    console.log(`UPDATEDATA : ${updateData}`);
+
+    const isPokemonPresent = db.get(pokemonEndpoint)
+    .value()
+    .filter(n => compareName(n, pokeName));
+
+    if (isPokemonPresent.length === 0) {
+        return {
+            success: false,
+            errorMessage: `Pokemon ${pokeName} not found.`,
+        };
+    }
+
+    if (updateData.get('type').length === 0) {
+        return {
+            success: false,
+            errorMessage: `type property is missing`,
+        };
+    }
+
+};

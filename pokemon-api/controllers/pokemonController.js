@@ -1,11 +1,12 @@
 const { pokemonService } = require('../services');
 const url = require('url');
+const { update } = require('../services/pokemonService');
 
 exports.handleGetRequest = (req, res) => {
     const pokemonUrl = new URL(req.url, `http://${req.headers.host}`);
 
     let data;
-    if (pokemonUrl.toString().includes('?')) {
+    if (pokemonUrl.toString().includes('?name')) {
         console.log(pokemonUrl.searchParams);
         const params = pokemonUrl.searchParams;
         data = pokemonService.getByName(params.get('name'));
@@ -51,18 +52,70 @@ exports.handlePostRequest = (req, res) => {
     });
 };
 
+exports.handlePutRequest = (req, res) => {
+    const pokemonUrl = new URL(req.url, `http://${req.headers.host}`);
+
+    if (pokemonUrl.toString().includes('?name')) {
+        const params = pokemonUrl.searchParams;
+        const pokeName = params.get('name');
+
+        const data = [];
+
+        req.on('data', (chunk) => {
+            data.push(chunk);
+            console.log(`CHUNK : ${chunk}`);
+        });
+
+        const parsedData = Buffer.concat(data).toString();
+        const updateData = JSON.parse(parsedData);
+
+        console.log(`UPDATEDATA : ${updateData}`);
+
+        const result = pokemonService.update(pokeName, updateData);
+
+    } else {
+        const errorMsg = {
+            success: false,
+            errorMessage: `name parameter is missing.`,
+        };
+
+        res.writeHead(400, {
+            'Content-Type': 'application/json',
+        });
+        res.write(JSON.stringify(errorMsg));
+        res.end();
+
+    }
+
+};
+
 exports.handleDeleteRequest = (req, res) => {
     const pokemonUrl = new URL(req.url, `http://${req.headers.host}`);
 
-    const params = pokemonUrl.searchParams;
-    const result = pokemonService.delete(params.get('name'));
+    if (pokemonUrl.toString().includes('?name')) {
 
-    // const data = pokemonService.get();
-    // const result = { data }; 
+        const params = pokemonUrl.searchParams;
+        const result = pokemonService.delete(params.get('name'));
 
-    res.writeHead(200, {
-        'Content-Type': 'application/json',
-    });
-    res.write(JSON.stringify(result));
-    res.end();
+        res.writeHead(200, {
+            'Content-Type': 'application/json',
+        });
+        res.write(JSON.stringify(result));
+        res.end();
+
+    } else {
+        const errorMsg = {
+            success: false,
+            errorMessage: `name parameter is missing.`,
+        };
+
+        res.writeHead(400, {
+            'Content-Type': 'application/json',
+        });
+        res.write(JSON.stringify(errorMsg));
+        res.end();
+
+    }
 };
+
+
