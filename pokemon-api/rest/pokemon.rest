@@ -83,7 +83,7 @@ PUT http://localhost:3000/pokemons?name=Milotic
 Content-Type: application/json
 
 {
-	"type": "Fire",
+	"type": "Water",
 	"generation": "4"
 }
 

@@ -2,8 +2,8 @@
   "pokemons": [
     {
       "name": "Lucario",
-      "type": "Fighting-Steel",
-      "generation": "4"
+      "type": "Fighting",
+      "generation": "3"
     },
     {
       "name": "Latios",
@@ -19,11 +19,6 @@
       "name": "Milotic",
       "type": "Fire",
       "generation": "4"
-    },
-    {
-      "name": "Tyranitar",
-      "type": "Rock-Dark",
-      "genaration": "2"
     }
   ]
 }

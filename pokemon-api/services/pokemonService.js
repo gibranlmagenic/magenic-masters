@@ -20,8 +20,6 @@ exports.get = () => {
 };
 
 exports.getByName = (pokeName) => {
-    console.log('getByName : '+pokeName);
-
     const pokemon = db.get(pokemonEndpoint)
                         .filter(n => compareName(n, pokeName));
 
