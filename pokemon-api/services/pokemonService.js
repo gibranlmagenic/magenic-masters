@@ -73,10 +73,7 @@ exports.delete = (pokeName) => {
 
 };
 
-exports.update = (pokeName, updateData) => {
-    
-    console.log(`UPDATEDATA : ${updateData}`);
-
+exports.update = (pokeName, dataJson) => {
     const isPokemonPresent = db.get(pokemonEndpoint)
     .value()
     .filter(n => compareName(n, pokeName));
@@ -88,11 +85,27 @@ exports.update = (pokeName, updateData) => {
         };
     }
 
-    if (updateData.get('type').length === 0) {
+    if (dataJson['type'] === "") {
+        return {
+            success: false,
+            errorMessage: `type property is blank`,
+        };
+    }
+
+    if (!JSON.stringify(dataJson).includes('type')) {
         return {
             success: false,
             errorMessage: `type property is missing`,
         };
     }
+
+    db.get(pokemonEndpoint)
+        .find({ name: pokeName })
+        .assign(dataJson)
+        .write();
+
+    return {
+        success: true,
+    };
 
 };

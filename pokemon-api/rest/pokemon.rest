@@ -78,6 +78,15 @@ Content-Type: application/json
 	"generation": "3" 
 }
 
+### Update - Update success
+PUT http://localhost:3000/pokemons?name=Milotic
+Content-Type: application/json
+
+{
+	"type": "Fire",
+	"generation": "4"
+}
+
 ### Update - Update success, generation property is optional
 PUT http://localhost:3000/pokemons?name=Milotic
 Content-Type: application/json
@@ -87,7 +96,7 @@ Content-Type: application/json
 }
 
 ### Update - Update fail, type property is missing
-PUT http://localhost:3000/servants?name=Milotic
+PUT http://localhost:3000/pokemons?name=Milotic
 Content-Type: application/json
 
 {

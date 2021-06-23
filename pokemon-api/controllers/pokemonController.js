@@ -63,15 +63,31 @@ exports.handlePutRequest = (req, res) => {
 
         req.on('data', (chunk) => {
             data.push(chunk);
-            console.log(`CHUNK : ${chunk}`);
         });
 
-        const parsedData = Buffer.concat(data).toString();
-        const updateData = JSON.parse(parsedData);
+        req.on('end', () => {
 
-        console.log(`UPDATEDATA : ${updateData}`);
+            const parsedData = Buffer.concat(data).toString();
+            const dataJson = JSON.parse(parsedData);
 
-        const result = pokemonService.update(pokeName, updateData);
+            const result = pokemonService.update(pokeName, dataJson);
+
+            if (!result.success) {
+                res.writeHead(400, {
+                    'Content-Type': 'application/json',
+                });
+                res.write(JSON.stringify(result));
+                res.end();
+            } else {
+    
+                res.writeHead(200, {
+                    'Content-Type': 'application/json',
+                });
+                res.write(JSON.stringify(result));
+                res.end();
+            }
+
+        });
 
     } else {
         const errorMsg = {
