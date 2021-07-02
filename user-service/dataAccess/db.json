@@ -4,8 +4,15 @@
       "id": "041e2d82-0119-401c-afe2-fc2fc5e4a225",
       "userName": "GibranL",
       "emailAddress": "gibranl@magenic.com",
-      "firstName": "Gibran Pogi",
+      "firstName": "Gibran Semwel",
       "lastName": "Loring"
+    },
+    {
+      "id": "d5ff4e21-5f05-44ba-9e4d-9e27928c6a85",
+      "userName": "ArnoldD",
+      "emailAddress": "arnoldD@magenic.com",
+      "firstName": "Arnold",
+      "lastName": "Dableo"
     }
   ]
 }

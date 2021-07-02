@@ -14,7 +14,10 @@ router.post('/',
   userController.insertUser
 );
 
-router.put('/user/:userName', userController.updateUserByUserName);
+router.put('/user/:userName',
+  userController.validateRequestRequiredPayload,
+  userController.validateRequestExtraPayload,
+  userController.updateUserByUserName);
 router.delete('/user/:userName', userController.deleteUserByUserName);
 
 module.exports = router;

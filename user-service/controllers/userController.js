@@ -108,12 +108,16 @@ const insertUser = async (req, res, next) => {
  * @param {NextFunction} next
  */
 const updateUserByUserName = async (req, res, next) => {
-  console.log('updateUserByUserName');
   const userName = req.params.userName;
   const payload = req.body;
 
   const user = await userDataAccess.getUserByUserName(userName);
-  await userDataAccess.update(user.id, payload);
+
+  if (user) {
+    await userDataAccess.update(user.id, payload);
+  } else {
+    return res.status(400).send('User not found.');
+  }
 
   res.sendStatus(200);
 };
@@ -129,7 +133,11 @@ const deleteUserByUserName = async (req, res, next) => {
 
   const user = await userDataAccess.getUserByUserName(userName);
 
-  await userDataAccess.delete(user.id);
+  if (user) {
+    await userDataAccess.delete(user.id);
+  } else {
+    return res.status(400).send('User not found.');
+  }
 
   res.sendStatus(200);
 };
