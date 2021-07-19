@@ -1,0 +1,11 @@
+{
+  "events": [
+    {
+      "id": "43160990-7fcb-44e9-9edc-d3efd125359d",
+      "name": "second event",
+      "type": "second event type",
+      "start": "2021_07_19",
+      "end": "2021_07_20"
+    }
+  ]
+}
