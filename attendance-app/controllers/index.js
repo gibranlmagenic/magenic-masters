@@ -1,3 +1,4 @@
 module.exports = {
-  eventController: require('./eventController')
+  eventController: require('./eventController'),
+  memberController: require('./memberController')
 };

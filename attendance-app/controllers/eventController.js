@@ -1,4 +1,5 @@
-const { eventsDataAccess } = require('../dataAccess');
+const { eventDataAccess } = require('../dataAccess');
+
 /**
  * https://jsdoc.app/
  * @typedef {import('express').Request} Request
@@ -13,7 +14,7 @@ const { eventsDataAccess } = require('../dataAccess');
  * @param {NextFunction} next
  */
 const getAllEvents = async (req, res, next) => {
-  const events = await eventsDataAccess.getAll();
+  const events = await eventDataAccess.getAll();
 
   res.send(events);
 };
@@ -27,7 +28,7 @@ const getAllEvents = async (req, res, next) => {
 const getEventById = async (req, res, next) => {
   const id = req.params.id;
 
-  const event = await eventsDataAccess.getById(id);
+  const event = await eventDataAccess.getById(id);
 
   res.send(event);
 };
@@ -41,9 +42,28 @@ const getEventById = async (req, res, next) => {
 const insertEvent = async (req, res, next) => {
   const payload = req.body;
 
-  const event = await eventsDataAccess.insert(payload);
+  const event = await eventDataAccess.insert(payload);
 
   res.status(201).send(event);
+};
+
+/**
+ * Updates event by id
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} next
+ */
+const updateEventById = async (req, res, next) => {
+  const id = req.params.id;
+  const payload = req.body;
+
+  const event = await eventDataAccess.getById(id);
+
+  if (event) {
+    await eventDataAccess.update(id, payload);
+  }
+
+  res.sendStatus(200);
 };
 
 /**
@@ -55,10 +75,10 @@ const insertEvent = async (req, res, next) => {
 const deleteEventById = async (req, res, next) => {
   const id = req.params.id;
 
-  const event = await eventsDataAccess.getById(id);
+  const event = await eventDataAccess.getById(id);
 
   if (event) {
-    await eventsDataAccess.delete(id);
+    await eventDataAccess.delete(id);
   }
 
   res.sendStatus(200);
@@ -68,5 +88,6 @@ module.exports = {
   getAllEvents,
   getEventById,
   insertEvent,
+  updateEventById,
   deleteEventById
 };

@@ -1,3 +1,4 @@
 module.exports = {
-  eventsDataAccess: require('./eventsDb')
+  eventDataAccess: require('./eventsDb'),
+  memberDataAccess: require('./membersDb')
 };

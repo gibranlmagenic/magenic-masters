@@ -4,8 +4,29 @@
       "id": "43160990-7fcb-44e9-9edc-d3efd125359d",
       "name": "second event",
       "type": "second event type",
-      "start": "2021_07_19",
-      "end": "2021_07_20"
+      "startDate": "2021_07_19",
+      "endDate": "2021_07_20"
+    },
+    {
+      "id": "ac829cb6-9518-4df8-be6e-41931981ca50",
+      "name": "first test event",
+      "type": "first event type",
+      "startDate": "2021_07_21",
+      "endDate": "2021_07_22"
+    }
+  ],
+  "members": [
+    {
+      "id": "b2216587-b63f-48a3-b67c-51b803cc8129",
+      "name": "member1",
+      "status": "status1",
+      "joinedDate": "2021_07_21"
+    },
+    {
+      "id": "8548fddd-f3b6-4619-a3ad-73d228a6b7e9",
+      "name": "member2",
+      "status": "status2",
+      "joinedDate": "2021_07_21"
     }
   ]
 }
