@@ -28,5 +28,12 @@
       "status": "status2",
       "joinedDate": "2021_07_21"
     }
+  ],
+  "attendance": [
+    {
+      "id": "31a623ec-a6bd-4d90-a2c8-d488587c4337",
+      "timeIn": "9:00AM",
+      "timeOut": "7:00PM"
+    }
   ]
 }

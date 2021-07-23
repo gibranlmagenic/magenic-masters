@@ -1,4 +1,5 @@
 module.exports = {
   eventRouter: require('./eventRouter'),
-  memberRouter: require('./memberRouter')
+  memberRouter: require('./memberRouter'),
+  attendanceRouter: require('./attendanceRouter')
 };
