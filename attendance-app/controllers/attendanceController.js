@@ -1,4 +1,4 @@
-const { attendanceDataAccess } = require('../dataAccess');
+const { attendanceDataAccess, memberDataAccess, eventDataAccess, MemberAttendance } = require('../dataAccess');
 
 /**
  * https://jsdoc.app/
@@ -20,6 +20,25 @@ const getAllAttendances = async (req, res, next) => {
 };
 
 /**
+ *
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} next
+ */
+const validateAttendanceRequestRequiredPayload = (req, res, next) => {
+  const payload = req.body;
+
+  const areAllPropsPresent = ['timeIn']
+    .every(requiredProp => requiredProp in payload);
+
+  if (areAllPropsPresent) {
+    return next();
+  }
+
+  res.status(400).send('timeIn must be present in the payload');
+};
+
+/**
    * Inserts attendance
    * @param {Request} req
    * @param {Response} res
@@ -28,7 +47,20 @@ const getAllAttendances = async (req, res, next) => {
 const insertAttendance = async (req, res, next) => {
   const payload = req.body;
 
-  const attendance = await attendanceDataAccess.insert(payload);
+  const event = await eventDataAccess.getById(payload.eventId);
+  const member = await memberDataAccess.getById(payload.memberId);
+
+  const attendancePayload = {
+    event: event,
+    member: member,
+    timeIn: payload.timeIn,
+    timeOut: payload.timeOut
+  };
+
+  const attendance = await attendanceDataAccess.insert(attendancePayload);
+
+  // const memberAtt = new MemberAttendance(member, attendance.timeIn, attendance.timeOut);
+  // await eventDataAccess.update(attendance.event.id, memberAtt);
 
   res.status(201).send(attendance);
 };
@@ -72,6 +104,7 @@ const deleteAttendanceById = async (req, res, next) => {
 
 module.exports = {
   getAllAttendances,
+  validateAttendanceRequestRequiredPayload,
   insertAttendance,
   updateAttendanceById,
   deleteAttendanceById

@@ -8,6 +8,7 @@ attendanceRouter.get('/', attendanceController.getAllAttendances);
 
 // POST methods
 attendanceRouter.post('/',
+  attendanceController.validateAttendanceRequestRequiredPayload,
   attendanceController.insertAttendance
 );
 

@@ -34,6 +34,25 @@ const getMemberById = async (req, res, next) => {
 };
 
 /**
+ *
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} next
+ */
+const validateMemberRequestRequiredPayload = (req, res, next) => {
+  const payload = req.body;
+
+  const areAllPropsPresent = ['name', 'status']
+    .every(requiredProp => requiredProp in payload);
+
+  if (areAllPropsPresent) {
+    return next();
+  }
+
+  res.status(400).send('name and status must be present in the payload');
+};
+
+/**
    * Inserts member
    * @param {Request} req
    * @param {Response} res
@@ -87,6 +106,7 @@ const deleteMemberById = async (req, res, next) => {
 module.exports = {
   getAllMembers,
   getMemberById,
+  validateMemberRequestRequiredPayload,
   insertMember,
   updateMemberById,
   deleteMemberById

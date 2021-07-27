@@ -1,4 +1,4 @@
-const { eventDataAccess } = require('../dataAccess');
+const { eventDataAccess, attendanceDataAccess, MemberAttendance } = require('../dataAccess');
 
 /**
  * https://jsdoc.app/
@@ -34,6 +34,25 @@ const getEventById = async (req, res, next) => {
 };
 
 /**
+ *
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} next
+ */
+const validateEventRequestRequiredPayload = (req, res, next) => {
+  const payload = req.body;
+
+  const areAllPropsPresent = ['name', 'type', 'startDate', 'endDate']
+    .every(requiredProp => requiredProp in payload);
+
+  if (areAllPropsPresent) {
+    return next();
+  }
+
+  res.status(400).send('name/type/startDate/endDate must be present in the payload');
+};
+
+/**
  * Inserts event
  * @param {Request} req
  * @param {Response} res
@@ -41,7 +60,6 @@ const getEventById = async (req, res, next) => {
  */
 const insertEvent = async (req, res, next) => {
   const payload = req.body;
-
   const event = await eventDataAccess.insert(payload);
 
   res.status(201).send(event);
@@ -87,6 +105,7 @@ const deleteEventById = async (req, res, next) => {
 module.exports = {
   getAllEvents,
   getEventById,
+  validateEventRequestRequiredPayload,
   insertEvent,
   updateEventById,
   deleteEventById

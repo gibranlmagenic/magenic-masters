@@ -9,6 +9,7 @@ memberRouter.get('/member/:id', memberController.getMemberById);
 
 // POST methods
 memberRouter.post('/',
+  memberController.validateMemberRequestRequiredPayload,
   memberController.insertMember
 );
 

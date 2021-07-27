@@ -9,6 +9,7 @@ eventRouter.get('/event/:id', eventController.getEventById);
 
 // POST methods
 eventRouter.post('/',
+  eventController.validateEventRequestRequiredPayload,
   eventController.insertEvent
 );
 

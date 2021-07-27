@@ -12,7 +12,25 @@
       "name": "first test event",
       "type": "first event type",
       "startDate": "2021_07_21",
-      "endDate": "2021_07_22"
+      "endDate": "2021_07_22",
+      "members": [
+        {
+          "id": "8548fddd-f3b6-4619-a3ad-73d228a6b7e9",
+          "name": "member2",
+          "status": "status2",
+          "joinedDate": "2021_07_21"
+        }
+      ],
+      "timeIn": "9:00AM",
+      "timeOut": "5:00PM",
+      "membersAttendance": [
+        {
+          "id": "8548fddd-f3b6-4619-a3ad-73d228a6b7e9",
+          "name": "member2",
+          "status": "status2",
+          "joinedDate": "2021_07_21"
+        }
+      ]
     }
   ],
   "members": [
@@ -29,11 +47,5 @@
       "joinedDate": "2021_07_21"
     }
   ],
-  "attendance": [
-    {
-      "id": "31a623ec-a6bd-4d90-a2c8-d488587c4337",
-      "timeIn": "9:00AM",
-      "timeOut": "7:00PM"
-    }
-  ]
+  "attendance": []
 }
