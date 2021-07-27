@@ -6,6 +6,7 @@ const eventRouter = express.Router();
 // GET methods
 eventRouter.get('/', eventController.getAllEvents);
 eventRouter.get('/event/:id', eventController.getEventById);
+eventRouter.get('/search', eventController.searchByNameAndDate);
 
 // POST methods
 eventRouter.post('/',

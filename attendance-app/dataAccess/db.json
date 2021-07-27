@@ -8,29 +8,18 @@
       "endDate": "2021_07_20"
     },
     {
-      "id": "ac829cb6-9518-4df8-be6e-41931981ca50",
-      "name": "first test event",
+      "id": "07bb737a-ed33-4574-b366-858c1ac069bf",
+      "name": "first event",
       "type": "first event type",
-      "startDate": "2021_07_21",
-      "endDate": "2021_07_22",
-      "members": [
-        {
-          "id": "8548fddd-f3b6-4619-a3ad-73d228a6b7e9",
-          "name": "member2",
-          "status": "status2",
-          "joinedDate": "2021_07_21"
-        }
-      ],
-      "timeIn": "9:00AM",
-      "timeOut": "5:00PM",
-      "membersAttendance": [
-        {
-          "id": "8548fddd-f3b6-4619-a3ad-73d228a6b7e9",
-          "name": "member2",
-          "status": "status2",
-          "joinedDate": "2021_07_21"
-        }
-      ]
+      "startDate": "2021-07-21",
+      "endDate": "2021-07-22"
+    },
+    {
+      "id": "d2bb3772-9e43-441d-aae1-5f80d508d8de",
+      "name": "third event",
+      "type": "third event type",
+      "startDate": "2021-09-21",
+      "endDate": "2021-09-22"
     }
   ],
   "members": [

@@ -103,11 +103,29 @@ const deleteMemberById = async (req, res, next) => {
   res.sendStatus(200);
 };
 
+const searchByNameAndStatus = async (req, res, next) => {
+  const name = req.query.name;
+  const status = req.query.status;
+
+  console.log(name + status);
+
+  const member = await memberDataAccess.searchByNameAndStatus(name, status);
+
+  console.log(`Members length : ${member.length}`);
+
+  if (member.length === 0) {
+    return res.status(400).send('Member not found.');
+  } else {
+    res.send(member);
+  }
+};
+
 module.exports = {
   getAllMembers,
   getMemberById,
   validateMemberRequestRequiredPayload,
   insertMember,
   updateMemberById,
-  deleteMemberById
+  deleteMemberById,
+  searchByNameAndStatus
 };

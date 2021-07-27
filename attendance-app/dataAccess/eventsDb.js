@@ -6,12 +6,8 @@ class EventDataAccess extends DataAccess {
     this.memberAttendance = memberAttendance;
   }
 
-  async getEventByNameAndDate (searchEventName, dateStart, dateEnd) {
-    const event = await this.getByAny({
-      propName: 'name',
-      propValue: searchEventName
-
-    });
+  async getEventByNameAndDate (eventName, startDate, endDate) {
+    const event = await this.getEventByCriteria(eventName, startDate, endDate);
 
     return event;
   }

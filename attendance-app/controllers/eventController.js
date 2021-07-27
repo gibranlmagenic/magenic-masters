@@ -1,4 +1,5 @@
 const { eventDataAccess, attendanceDataAccess, MemberAttendance } = require('../dataAccess');
+var moment = require('moment');
 
 /**
  * https://jsdoc.app/
@@ -46,7 +47,9 @@ const validateEventRequestRequiredPayload = (req, res, next) => {
     .every(requiredProp => requiredProp in payload);
 
   if (areAllPropsPresent) {
-    return next();
+    if (moment(payload.startDate, 'YYYY-MM-DD', true).isValid() && moment(payload.endDate, 'YYYY-MM-DD', true).isValid()) {
+      return next();
+    }
   }
 
   res.status(400).send('name/type/startDate/endDate must be present in the payload');
@@ -102,11 +105,30 @@ const deleteEventById = async (req, res, next) => {
   res.sendStatus(200);
 };
 
+const searchByNameAndDate = async (req, res, next) => {
+  const name = req.query.name;
+  const startDate = req.query.startDate;
+  const endDate = req.query.endDate;
+
+  console.log(name + status);
+
+  const event = await eventDataAccess.getEventByNameAndDate(name, startDate, endDate);
+
+  console.log(`Members length : ${event.length}`);
+
+  if (event.length === 0) {
+    return res.status(400).send('Event not found.');
+  } else {
+    res.send(event);
+  }
+};
+
 module.exports = {
   getAllEvents,
   getEventById,
   validateEventRequestRequiredPayload,
   insertEvent,
   updateEventById,
-  deleteEventById
+  deleteEventById,
+  searchByNameAndDate
 };

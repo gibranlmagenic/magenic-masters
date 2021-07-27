@@ -40,6 +40,31 @@ class DataAccess {
       .value();
   }
 
+  async getMemberByCriteria (nameValue, statusValue) {
+    const dbContext = await this.dbContext;
+
+    return dbContext
+      .get(this.tableName)
+      .filter({
+        name: nameValue,
+        status: statusValue
+      })
+      .value();
+  }
+
+  async getEventByCriteria (nameValue, startDateValue, endDateValue) {
+    const dbContext = await this.dbContext;
+
+    return dbContext
+      .get(this.tableName)
+      .filter({
+        name: nameValue,
+        startDate: startDateValue,
+        endDate: endDateValue
+      })
+      .value();
+  }
+
   async insert (data) {
     const dbContext = await this.dbContext;
     const id = uuid();
