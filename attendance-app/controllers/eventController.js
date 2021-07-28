@@ -46,13 +46,28 @@ const validateEventRequestRequiredPayload = (req, res, next) => {
   const areAllPropsPresent = ['name', 'type', 'startDate', 'endDate']
     .every(requiredProp => requiredProp in payload);
 
+  const areDatesValid = (moment(payload.startDate, 'YYYY-MM-DD', true).isValid() && moment(payload.endDate, 'YYYY-MM-DD', true).isValid()) &&
+  (moment(payload.startDate, 'YYYY-MM-DD') < moment(payload.endDate, 'YYYY-MM-DD'));
+
   if (areAllPropsPresent) {
-    if (moment(payload.startDate, 'YYYY-MM-DD', true).isValid() && moment(payload.endDate, 'YYYY-MM-DD', true).isValid()) {
+    if (areDatesValid) {
       return next();
+    } else {
+      next({
+        status: '400',
+        result: 'Validation error',
+        message: 'Invalid date: Date should be in YYY-MM-DD format and starDate < endDate'
+      });
     }
+  } else {
+    next({
+      status: '400',
+      result: 'Validation error',
+      message: 'name/type/startDate/endDate must be present in the payload'
+    });
   }
 
-  res.status(400).send('name/type/startDate/endDate must be present in the payload');
+  // res.status(400).send('name/type/startDate/endDate must be present in the payload');
 };
 
 /**

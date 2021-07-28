@@ -20,6 +20,13 @@
       "type": "third event type",
       "startDate": "2021-09-21",
       "endDate": "2021-09-22"
+    },
+    {
+      "id": "851dec53-87c1-4779-a10c-24db2eda5168",
+      "name": "fourth event",
+      "type": "fourth event type",
+      "startDate": "2021-08-21",
+      "endDate": "2021-09-22"
     }
   ],
   "members": [

@@ -14,6 +14,10 @@ eventRouter.post('/',
   eventController.insertEvent
 );
 
+eventRouter.use((err, req, res, next) => {
+  next(err);
+});
+
 // PUT methods
 eventRouter.put('/event/:id', eventController.updateEventById);
 
