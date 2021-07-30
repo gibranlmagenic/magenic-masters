@@ -11,8 +11,13 @@ memberRouter.get('/search', memberController.searchByNameAndStatus);
 // POST methods
 memberRouter.post('/',
   memberController.validateMemberRequestRequiredPayload,
+  memberController.validateMemberRequestExtraPayload,
   memberController.insertMember
 );
+
+memberRouter.use((err, req, res, next) => {
+  next(err);
+});
 
 // PUT methods
 memberRouter.put('/member/:id', memberController.updateMemberById);

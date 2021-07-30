@@ -11,6 +11,7 @@ eventRouter.get('/search', eventController.searchByNameAndDate);
 // POST methods
 eventRouter.post('/',
   eventController.validateEventRequestRequiredPayload,
+  eventController.validateEventRequestRequiredPayload,
   eventController.insertEvent
 );
 

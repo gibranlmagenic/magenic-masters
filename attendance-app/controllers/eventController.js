@@ -35,7 +35,7 @@ const getEventById = async (req, res, next) => {
 };
 
 /**
- *
+ * Validation method
  * @param {Request} req
  * @param {Response} res
  * @param {NextFunction} next
@@ -56,7 +56,7 @@ const validateEventRequestRequiredPayload = (req, res, next) => {
       next({
         status: '400',
         result: 'Validation error',
-        message: 'Invalid date: Date should be in YYY-MM-DD format and starDate < endDate'
+        message: 'Invalid date: Date should be in YYYY-MM-DD format and starDate < endDate'
       });
     }
   } else {
@@ -66,8 +66,25 @@ const validateEventRequestRequiredPayload = (req, res, next) => {
       message: 'name/type/startDate/endDate must be present in the payload'
     });
   }
+};
 
-  // res.status(400).send('name/type/startDate/endDate must be present in the payload');
+const validateEventRequestExtraPayload = (req, res, next) => {
+  const payload = req.body;
+  const payloadPropNames = Object.keys(payload);
+  const validPropNames = ['name', 'type', 'startDate', 'endDate'];
+
+  const hasExtraProps = !payloadPropNames
+    .every(payloadPropName => validPropNames.includes(payloadPropName));
+
+  if (hasExtraProps) {
+    return next({
+      status: '400',
+      result: 'Validation error',
+      message: 'Request payload has extra properties'
+    });
+  }
+
+  next();
 };
 
 /**
@@ -142,6 +159,7 @@ module.exports = {
   getAllEvents,
   getEventById,
   validateEventRequestRequiredPayload,
+  validateEventRequestExtraPayload,
   insertEvent,
   updateEventById,
   deleteEventById,

@@ -1,9 +1,8 @@
 const DataAccess = require('./db');
 
 class EventDataAccess extends DataAccess {
-  constructor (memberAttendance) {
+  constructor () {
     super('events');
-    this.memberAttendance = memberAttendance;
   }
 
   async getEventByNameAndDate (eventName, startDate, endDate) {

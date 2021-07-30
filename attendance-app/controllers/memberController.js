@@ -48,8 +48,30 @@ const validateMemberRequestRequiredPayload = (req, res, next) => {
   if (areAllPropsPresent) {
     return next();
   }
+  next({
+    status: '400',
+    result: 'Validation error',
+    message: 'name and status must be present in the payload'
+  });
+};
 
-  res.status(400).send('name and status must be present in the payload');
+const validateMemberRequestExtraPayload = (req, res, next) => {
+  const payload = req.body;
+  const payloadPropNames = Object.keys(payload);
+  const validPropNames = ['name', 'status', 'joinedDate'];
+
+  const hasExtraProps = !payloadPropNames
+    .every(payloadPropName => validPropNames.includes(payloadPropName));
+
+  if (hasExtraProps) {
+    return next({
+      status: '400',
+      result: 'Validation error',
+      message: 'Request payload has extra properties'
+    });
+  }
+
+  next();
 };
 
 /**
@@ -124,6 +146,7 @@ module.exports = {
   getAllMembers,
   getMemberById,
   validateMemberRequestRequiredPayload,
+  validateMemberRequestExtraPayload,
   insertMember,
   updateMemberById,
   deleteMemberById,
