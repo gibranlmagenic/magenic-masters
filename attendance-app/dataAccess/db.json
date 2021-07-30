@@ -31,16 +31,15 @@
   ],
   "members": [
     {
-      "id": "b2216587-b63f-48a3-b67c-51b803cc8129",
-      "name": "member1",
+      "id": "20df7005-d331-4f8e-8c26-7259b182a387",
+      "name": "member3",
       "status": "status1",
-      "joinedDate": "2021_07_21"
+      "joinedDate": "2021-10-21"
     },
     {
-      "id": "8548fddd-f3b6-4619-a3ad-73d228a6b7e9",
-      "name": "member2",
-      "status": "status2",
-      "joinedDate": "2021_07_21"
+      "id": "7ed2ef81-baf9-407f-b019-711b9ca54501",
+      "name": "member1",
+      "status": "status1"
     }
   ],
   "attendance": []

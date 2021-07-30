@@ -20,7 +20,10 @@ eventRouter.use((err, req, res, next) => {
 });
 
 // PUT methods
-eventRouter.put('/event/:id', eventController.updateEventById);
+eventRouter.put('/event/:id',
+  eventController.validateEventRequestRequiredPayload,
+  eventController.validateEventRequestRequiredPayload,
+  eventController.updateEventById);
 
 // DELETE methods
 eventRouter.delete('/event/:id', eventController.deleteEventById);

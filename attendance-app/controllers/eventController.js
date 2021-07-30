@@ -1,5 +1,5 @@
 const { eventDataAccess, attendanceDataAccess, MemberAttendance } = require('../dataAccess');
-var moment = require('moment');
+const moment = require('moment');
 
 /**
  * https://jsdoc.app/

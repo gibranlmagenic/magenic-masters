@@ -1,4 +1,5 @@
 const { memberDataAccess } = require('../dataAccess');
+const moment = require('moment');
 
 /**
  * https://jsdoc.app/
@@ -82,9 +83,24 @@ const validateMemberRequestExtraPayload = (req, res, next) => {
    */
 const insertMember = async (req, res, next) => {
   const payload = req.body;
+  let isDateValid = true;
+
+  if (payload.joinedDate) {
+    isDateValid = moment(payload.joinedDate, 'YYYY-MM-DD', true).isValid() && (moment(payload.joinedDate, 'YYYY-MM-DD') < moment.now);
+    console.log(isDateValid);
+  }
+
+  // const isStatusValid = req.body.status
+  console.log(isDateValid);
+  if (!isDateValid) {
+    return next({
+      status: '400',
+      result: 'Validation error',
+      message: 'Please check joinedDate input'
+    });
+  }
 
   const member = await memberDataAccess.insert(payload);
-
   res.status(201).send(member);
 };
 

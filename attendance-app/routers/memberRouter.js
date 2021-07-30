@@ -20,7 +20,10 @@ memberRouter.use((err, req, res, next) => {
 });
 
 // PUT methods
-memberRouter.put('/member/:id', memberController.updateMemberById);
+memberRouter.put('/member/:id',
+  memberController.validateMemberRequestRequiredPayload,
+  memberController.validateMemberRequestExtraPayload,
+  memberController.updateMemberById);
 
 // DELETE methods
 memberRouter.delete('/member/:id', memberController.deleteMemberById);
