@@ -1,15 +1,8 @@
 {
   "events": [
     {
-      "id": "43160990-7fcb-44e9-9edc-d3efd125359d",
-      "name": "second event",
-      "type": "second event type",
-      "startDate": "2021_07_19",
-      "endDate": "2021_07_20"
-    },
-    {
       "id": "07bb737a-ed33-4574-b366-858c1ac069bf",
-      "name": "first event",
+      "name": "first",
       "type": "first event type",
       "startDate": "2021-07-21",
       "endDate": "2021-07-22"
@@ -23,7 +16,7 @@
     },
     {
       "id": "851dec53-87c1-4779-a10c-24db2eda5168",
-      "name": "fourth event",
+      "name": "fourth",
       "type": "fourth event type",
       "startDate": "2021-08-21",
       "endDate": "2021-09-22"

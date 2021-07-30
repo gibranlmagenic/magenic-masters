@@ -142,17 +142,31 @@ const searchByNameAndDate = async (req, res, next) => {
   const startDate = req.query.startDate;
   const endDate = req.query.endDate;
 
-  console.log(name + status);
+  const areQueriesMissing = (name === '' || startDate === '' || startDate === '');
+
+  console.log(name);
+
+  if (areQueriesMissing) {
+    return next({
+      status: '400',
+      result: 'Bad Request',
+      message: 'Url query missing'
+    });
+  }
 
   const event = await eventDataAccess.getEventByNameAndDate(name, startDate, endDate);
 
   console.log(`Members length : ${event.length}`);
 
   if (event.length === 0) {
-    return res.status(400).send('Event not found.');
-  } else {
-    res.send(event);
+    return next({
+      status: '404',
+      result: 'Validation error',
+      message: 'Event not found'
+    });
   }
+
+  res.send(event);
 };
 
 module.exports = {
