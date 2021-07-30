@@ -95,6 +95,9 @@ const validateEventRequestExtraPayload = (req, res, next) => {
  */
 const insertEvent = async (req, res, next) => {
   const payload = req.body;
+
+  payload.membersAttendance = [];
+
   const event = await eventDataAccess.insert(payload);
 
   res.status(201).send(event);
@@ -130,11 +133,18 @@ const deleteEventById = async (req, res, next) => {
 
   const event = await eventDataAccess.getById(id);
 
-  if (event) {
+  const hasNoMemberAttendance = event.membersAttendance.length === 0;
+
+  if (event && hasNoMemberAttendance) {
     await eventDataAccess.delete(id);
+    return res.sendStatus(200);
   }
 
-  res.sendStatus(200);
+  next({
+    status: '400',
+    result: 'Invalid request',
+    message: 'Event has a member attendance. Unable to delete.'
+  });
 };
 
 const searchByNameAndDate = async (req, res, next) => {

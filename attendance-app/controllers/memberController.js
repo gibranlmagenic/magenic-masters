@@ -84,14 +84,12 @@ const validateMemberRequestExtraPayload = (req, res, next) => {
 const insertMember = async (req, res, next) => {
   const payload = req.body;
   let isDateValid = true;
+  const momentJoinedDate = moment(payload.joinedDate, 'YYYY-MM-DD');
 
   if (payload.joinedDate) {
-    isDateValid = moment(payload.joinedDate, 'YYYY-MM-DD', true).isValid() && (moment(payload.joinedDate, 'YYYY-MM-DD') < moment.now);
-    console.log(isDateValid);
+    isDateValid = momentJoinedDate.isValid() && (momentJoinedDate.isBefore(moment()));
   }
 
-  // const isStatusValid = req.body.status
-  console.log(isDateValid);
   if (!isDateValid) {
     return next({
       status: '400',
@@ -99,6 +97,8 @@ const insertMember = async (req, res, next) => {
       message: 'Please check joinedDate input'
     });
   }
+
+  payload.eventsAttendance = [];
 
   const member = await memberDataAccess.insert(payload);
   res.status(201).send(member);
@@ -134,11 +134,18 @@ const deleteMemberById = async (req, res, next) => {
 
   const member = await memberDataAccess.getById(id);
 
-  if (member) {
+  const hasNoEventAttendance = member.eventsAttendance.length === 0;
+
+  if (member && hasNoEventAttendance) {
     await memberDataAccess.delete(id);
+    return res.sendStatus(200);
   }
 
-  res.sendStatus(200);
+  next({
+    status: '400',
+    result: 'Invalid request',
+    message: 'Member has an event attendance. Unable to delete.'
+  });
 };
 
 const searchByNameAndStatus = async (req, res, next) => {
@@ -148,8 +155,6 @@ const searchByNameAndStatus = async (req, res, next) => {
   console.log(name + status);
 
   const member = await memberDataAccess.searchByNameAndStatus(name, status);
-
-  console.log(`Members length : ${member.length}`);
 
   if (member.length === 0) {
     return res.status(400).send('Member not found.');

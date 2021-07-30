@@ -1,4 +1,4 @@
-const { attendanceDataAccess, memberDataAccess, eventDataAccess, MemberAttendance } = require('../dataAccess');
+const { attendanceDataAccess, memberDataAccess, eventDataAccess, MemberAttendance, eventAttendance } = require('../dataAccess');
 
 /**
  * https://jsdoc.app/
@@ -51,16 +51,43 @@ const insertAttendance = async (req, res, next) => {
   const member = await memberDataAccess.getById(payload.memberId);
 
   const attendancePayload = {
-    event: event,
-    member: member,
+    event: {
+      id: event.id,
+      name: event.name,
+      type: event.type
+    },
+    member: {
+      id: member.id,
+      name: member.name,
+      status: member.status
+    },
     timeIn: payload.timeIn,
     timeOut: payload.timeOut
   };
 
   const attendance = await attendanceDataAccess.insert(attendancePayload);
 
-  // const memberAtt = new MemberAttendance(member, attendance.timeIn, attendance.timeOut);
-  // await eventDataAccess.update(attendance.event.id, memberAtt);
+  const memAttData = {
+    _id: attendance.id,
+    member: attendance.member,
+    timeIn: attendance.timeIn,
+    timeOut: attendance.timeOut
+  };
+
+  console.log(memAttData);
+
+  const eventAttData = {
+    _id: attendance.id,
+    event: attendance.event,
+    timeIn: attendance.timeIn,
+    timeOut: attendance.timeOut
+  };
+
+  event.membersAttendance.push(memAttData);
+  member.eventsAttendance.push(eventAttData);
+
+  await eventDataAccess.update(attendance.event.id, event);
+  await memberDataAccess.update(attendance.member.id, member);
 
   res.status(201).send(attendance);
 };

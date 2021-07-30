@@ -1,39 +1,126 @@
 {
   "events": [
     {
-      "id": "07bb737a-ed33-4574-b366-858c1ac069bf",
-      "name": "first",
-      "type": "first event type",
-      "startDate": "2021-07-21",
-      "endDate": "2021-07-22"
-    },
-    {
-      "id": "d2bb3772-9e43-441d-aae1-5f80d508d8de",
-      "name": "third event",
-      "type": "third event type",
-      "startDate": "2021-09-21",
-      "endDate": "2021-09-22"
-    },
-    {
-      "id": "851dec53-87c1-4779-a10c-24db2eda5168",
-      "name": "fourth",
-      "type": "fourth event type",
+      "id": "d5af4b32-35f4-4d66-b64d-280389a0537f",
+      "name": "Node Masters",
+      "type": "Masters",
       "startDate": "2021-08-21",
-      "endDate": "2021-09-22"
+      "endDate": "2021-09-22",
+      "membersAttendance": [
+        {
+          "_id": "041aee96-765c-4280-94cb-e995de56d933",
+          "member": {
+            "id": "f126af70-6487-48c9-b30e-722227eb4110",
+            "name": "Gib Loring",
+            "status": "Active"
+          },
+          "timeIn": "10:00AM",
+          "timeOut": "2:00PM"
+        },
+        {
+          "_id": "81cea176-d91a-480f-883e-4db2f576adf9",
+          "member": {
+            "id": "f126af70-6487-48c9-b30e-722227eb4110",
+            "name": "Gib Loring",
+            "status": "Active"
+          },
+          "timeIn": "8:00AM",
+          "timeOut": "5:00PM"
+        }
+      ]
+    },
+    {
+      "id": "203c66dc-5f2a-414b-901b-015859935208",
+      "name": "Java Masters",
+      "type": "Masters",
+      "startDate": "2021-05-10",
+      "endDate": "2021-10-10",
+      "membersAttendance": [
+        {
+          "_id": "4b08d54a-a27c-4ae9-a8b9-49581968a843",
+          "member": {
+            "id": "c8f0025d-646b-4615-a360-0ac384da035c",
+            "name": "Moe Cali",
+            "status": "Active"
+          },
+          "timeIn": "3:00PM",
+          "timeOut": "5:00PM"
+        }
+      ]
     }
   ],
   "members": [
     {
-      "id": "20df7005-d331-4f8e-8c26-7259b182a387",
-      "name": "member3",
-      "status": "status1",
-      "joinedDate": "2021-10-21"
+      "id": "f126af70-6487-48c9-b30e-722227eb4110",
+      "name": "Gib Loring",
+      "status": "Active",
+      "joinedDate": "2021-02-28",
+      "eventsAttendance": []
     },
     {
-      "id": "7ed2ef81-baf9-407f-b019-711b9ca54501",
-      "name": "member1",
-      "status": "status1"
+      "id": "c8f0025d-646b-4615-a360-0ac384da035c",
+      "name": "Moe Cali",
+      "status": "Active",
+      "joinedDate": "2021-01-10",
+      "eventsAttendance": [
+        {
+          "_id": "4b08d54a-a27c-4ae9-a8b9-49581968a843",
+          "event": {
+            "id": "203c66dc-5f2a-414b-901b-015859935208",
+            "name": "Java Masters",
+            "type": "Masters"
+          },
+          "timeIn": "3:00PM",
+          "timeOut": "5:00PM"
+        }
+      ]
     }
   ],
-  "attendance": []
+  "attendance": [
+    {
+      "id": "041aee96-765c-4280-94cb-e995de56d933",
+      "event": {
+        "id": "d5af4b32-35f4-4d66-b64d-280389a0537f",
+        "name": "Node Masters",
+        "type": "Masters"
+      },
+      "member": {
+        "id": "f126af70-6487-48c9-b30e-722227eb4110",
+        "name": "Gib Loring",
+        "status": "Active"
+      },
+      "timeIn": "10:00AM",
+      "timeOut": "2:00PM"
+    },
+    {
+      "id": "81cea176-d91a-480f-883e-4db2f576adf9",
+      "event": {
+        "id": "d5af4b32-35f4-4d66-b64d-280389a0537f",
+        "name": "Node Masters",
+        "type": "Masters"
+      },
+      "member": {
+        "id": "f126af70-6487-48c9-b30e-722227eb4110",
+        "name": "Gib Loring",
+        "status": "Active"
+      },
+      "timeIn": "8:00AM",
+      "timeOut": "5:00PM"
+    },
+    {
+      "id": "4b08d54a-a27c-4ae9-a8b9-49581968a843",
+      "event": {
+        "id": "203c66dc-5f2a-414b-901b-015859935208",
+        "name": "Java Masters",
+        "type": "Masters"
+      },
+      "member": {
+        "id": "c8f0025d-646b-4615-a360-0ac384da035c",
+        "name": "Moe Cali",
+        "status": "Active"
+      },
+      "timeIn": "3:00PM",
+      "timeOut": "5:00PM"
+    }
+  ]
 }

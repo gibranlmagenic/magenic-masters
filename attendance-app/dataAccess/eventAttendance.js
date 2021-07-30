@@ -1,6 +1,6 @@
 class EventAttendance {
-  constructor (eventName, timeIn, timeOut) {
-    this.eventName = eventName;
+  constructor (attendance, timeIn, timeOut) {
+    this.attendance = attendance;
     this.timeIn = timeIn;
     this.timeOut = timeOut;
   }

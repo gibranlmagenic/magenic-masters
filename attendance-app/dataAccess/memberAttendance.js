@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 class MemberAttendance {
-  constructor (membersAttendance, timeIn, timeOut) {
-    this.membersAttendance = membersAttendance;
+  constructor (attendance, timeIn, timeOut) {
+    this.attendance = attendance;
     this.timeIn = timeIn;
     this.timeOut = timeOut;
   }
